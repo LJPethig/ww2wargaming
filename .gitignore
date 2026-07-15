@@ -1,0 +1,21 @@
+# Python bytecode cache
+__pycache__/
+*.pyc
+
+# uv-managed virtual environment
+.venv/
+
+# Django
+media/
+staticfiles/
+*.log
+db.sqlite3
+
+# Secrets
+.env
+
+# PyCharm project settings
+.idea/
+
+# macOS
+.DS_Store
