@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{{ nationality }} {{ vehicle_type }}{% endblock %}
+
+{% block content %}
+<h1>{{ nationality }} — {{ vehicle_type }}</h1>
+<p><a href="{% url 'type_list' nationality=nationality %}">&larr; Back to types</a></p>
+
+{% if vehicles %}
+    <ul>
+        {% for vehicle in vehicles %}
+            <li>{{ vehicle.name }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No {{ vehicle_type }} vehicles entered for {{ nationality }} yet.</p>
+{% endif %}
+{% endblock %}

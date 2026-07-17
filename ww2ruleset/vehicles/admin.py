@@ -80,8 +80,8 @@ class CrewMemberInline(admin.TabularInline):
 class HullArmourInline(admin.StackedInline):
     model = HullArmour
     extra = 0
-    max_num = 1 # OneToOne — at most one armour record per vehicle
-    can_delete = True   # allows removing armour if a vehicle turns out to be unarmoured
+    max_num = 1 # OneToOne — at most one armour record per vehicles
+    can_delete = True   # allows removing armour if a vehicles turns out to be unarmoured
     verbose_name = "Hull Armour — Only for armoured vehicles"
     fieldsets = (
         ("Armour Thickness (mm) - leave empty if plate doesn't exist", {
@@ -123,8 +123,8 @@ class HullArmourInline(admin.StackedInline):
 class SuperStructureInline(admin.StackedInline):
     model = SuperStructure
     extra = 0
-    max_num = 1 # OneToOne — at most one armour record per vehicle
-    can_delete = True # allows removing armour if a vehicle turns out to be unarmoured
+    max_num = 1 # OneToOne — at most one armour record per vehicles
+    can_delete = True # allows removing armour if a vehicles turns out to be unarmoured
     verbose_name = "Superstructure — for turret, casemate, fighting compartment, or a raised gun shield/mantlet"
     fieldsets = (
         ("Armour Thickness (mm) - leave empty if plate doesn't exist", {

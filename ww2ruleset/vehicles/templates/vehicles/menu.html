@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Main Menu — WW2 Wargame Aid{% endblock %}
+
+{% block content %}
+<h1>WW2 Wargame Aid</h1>
+
+<nav>
+    <ul>
+        <li><a href="{% url 'nationality_list' %}">Vehicle Database</a></li>
+        <li><a href="{% url 'admin:index' %}">Admin</a></li>
+    </ul>
+</nav>
+{% endblock %}

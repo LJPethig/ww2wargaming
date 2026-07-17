@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ nationality }} — Choose Type{% endblock %}
+
+{% block content %}
+<h1>{{ nationality }} Vehicles</h1>
+<p><a href="{% url 'nationality_list' %}">&larr; Back to nationalities</a></p>
+
+<ul>
+    {% for value, label in vehicle_types %}
+        <li><a href="{% url 'vehicle_list' nationality=nationality vehicle_type=value %}">{{ label }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
