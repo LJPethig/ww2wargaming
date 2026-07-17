@@ -49,7 +49,7 @@ class WeaponType(models.TextChoices):
     ROCKET_LAUNCHER = "rocket_launcher", "Rocket Launcher"
 
 class WeaponRole(models.TextChoices):
-    MAIN_ARMAMENT = "main_armament", "Main Armament"                # the vehicle's defining weapon
+    MAIN_ARMAMENT = "main_armament", "Main Armament"                # the vehicles's defining weapon
     SECONDARY_ARMAMENT = "secondary_armament", "Secondary Armament" # e.g. M3 Lee's 75mm sponson gun
     COAXIAL_MACHINE_GUN = "coaxial_machine_gun", "Coaxial Machine Gun"
     BOW_MACHINE_GUN = "bow_machine_gun", "Bow Machine Gun"
@@ -62,12 +62,10 @@ class ArmourComposition(models.TextChoices):
 class VehicleType(models.TextChoices):
     TANK = "Tank", "Tank"
     SP_GUN = "SP Gun", "SP Gun"
-    AA_GUN = "AA Gun", "AA Gun"
     TANK_DESTROYER = "Tank Destroyer", "Tank Destroyer"
     HALF_TRACK = "Half-Track", "Half-Track"
     ARMOURED_CAR = "Armoured Car", "Armoured Car"
     CARRIER = "Carrier", "Carrier"
-    RECOVERY = "Recovery", "Recovery"
     TRUCK = "Truck", "Truck"
     JEEP = "Jeep", "Jeep"
     MOTORCYCLE = "Motorcycle", "Motorcycle"
@@ -184,7 +182,7 @@ class Weapon(models.Model):
         ordering = ["caliber_mm", "nationality", "name"]
 
 class VehicleAmmoCapacity(models.Model):
-    # pools all ammo of this caliber for the entire vehicle, regardless of
+    # pools all ammo of this caliber for the entire vehicles, regardless of
     # nationality (simplification: assumes same-caliber = compatible)
     vehicle = models.ForeignKey("Vehicle", related_name="ammo_capacity", on_delete=models.CASCADE)
     caliber_mm = models.FloatField()
@@ -329,7 +327,7 @@ class SuperStructure(models.Model):
     armour_composition_mantlet = models.CharField(max_length=20, choices=ArmourComposition.choices, null=True, blank=True)
     does_rotate = models.BooleanField()
 
-    # In relation to the entire vehicle, derived from a visual exam of front and side
+    # In relation to the entire vehicles, derived from a visual exam of front and side
     # profile photos and then averaged to determine the proportion
     superstructure_proportion_percent = models.PositiveSmallIntegerField()
 
@@ -392,7 +390,7 @@ class Vehicle(models.Model):
 
     @property
     def profile_size(self):
-        # calculate overall vehicle profile size based on the structural height of a vehicle
+        # calculate overall vehicles profile size based on the structural height of a vehicles
         if self.height_m <= 1.9:
             return "low_profile"
         elif self.height_m >= 2.74:
