@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}{{ nationality }} {{ vehicle_type }}{% endblock %}
+{% block title %}{{ nationality }} {{ type_group_label }}{% endblock %}
 
 {% block content %}
-<h1>{{ nationality }} — {{ vehicle_type }}</h1>
+<h1>{{ nationality }} — {{ type_group_label }}</h1>
 <p><a href="{% url 'type_list' nationality=nationality %}">&larr; Back to types</a></p>
 
 {% if vehicles %}
@@ -13,6 +13,6 @@
         {% endfor %}
     </ul>
 {% else %}
-    <p>No {{ vehicle_type }} vehicles entered for {{ nationality }} yet.</p>
+    <p>No {{ type_group_label }} vehicles entered for {{ nationality }} yet.</p>
 {% endif %}
 {% endblock %}
