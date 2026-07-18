@@ -1,14 +1,23 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Main Menu — WW2 Wargame Aid{% endblock %}
+{% block title %}WW2 Wargaming{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>WW2 Wargame Aid</h1>
+<div class="menu-screen" style="--menu-bg-image: url('{% static "images/main_menu.jpg" %}')">
+    <div class="menu-content">
+        <h1 class="menu-title">WW2 Wargaming</h1>
 
-<nav>
-    <ul>
-        <li><a href="{% url 'nationality_list' %}">Vehicle Database</a></li>
-        <li><a href="{% url 'admin:index' %}">Admin</a></li>
-    </ul>
-</nav>
+        <nav class="menu-nav">
+            <ul>
+                <li><a href="{% url 'nationality_list' %}">Vehicle Database</a></li>
+                <li><a href="{% url 'admin:index' %}">Admin</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
 {% endblock %}
