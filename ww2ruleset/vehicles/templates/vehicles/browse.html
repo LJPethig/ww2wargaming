@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Vehicle Database{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/browse.css' %}">
+{% endblock %}
+
+{% block content %}
+{{ counts|json_script:"counts-data" }}
+<div class="browse-screen" style="--browse-bg-image: url('{% static "images/vehicle_menu.jpg" %}')"
+    x-data="{
+        counts: JSON.parse(document.getElementById('counts-data').textContent),
+        nationality: null,
+        typeGroup: null,
+        isNatEmpty(nat) {
+            return this.typeGroup
+                ? this.counts[nat][this.typeGroup] === 0
+                : Object.values(this.counts[nat]).every(c => c === 0);
+        },
+        isTypeEmpty(key) {
+            return this.nationality
+                ? this.counts[this.nationality][key] === 0
+                : Object.keys(this.counts).every(nat => this.counts[nat][key] === 0);
+        },
+        selectNationality(nat) {
+            this.nationality = (this.nationality === nat) ? null : nat;
+            if (this.nationality && this.typeGroup && this.counts[this.nationality][this.typeGroup] === 0) {
+                this.typeGroup = null;
+            }
+            this.loadGrid();
+        },
+        selectType(key) {
+            this.typeGroup = (this.typeGroup === key) ? null : key;
+            if (this.typeGroup && this.nationality && this.counts[this.nationality][this.typeGroup] === 0) {
+                this.nationality = null;
+            }
+            this.loadGrid();
+        },
+        loadGrid() {
+            const grid = document.getElementById('vehicle-grid');
+            if (this.nationality && this.typeGroup) {
+                htmx.ajax('GET', `{% url 'vehicle_grid' %}?nationality=${this.nationality}&type_group=${this.typeGroup}`, { target: '#vehicle-grid', swap: 'innerHTML' });
+            } else {
+                grid.innerHTML = '';
+            }
+        }
+    }"
+>
+
+    <div class="browse-row">
+        {% for value, label in nationalities %}
+        <button type="button"
+            class="browse-box"
+            @click="selectNationality('{{ value }}')"
+            :class="{ 'is-selected': nationality === '{{ value }}', 'is-empty': isNatEmpty('{{ value }}') }"
+            :disabled="isNatEmpty('{{ value }}')">
+            {{ label }}
+        </button>
+        {% endfor %}
+    </div>
+
+    <div class="browse-row">
+        {% for key, group in type_groups.items %}
+        <button type="button"
+            class="browse-box"
+            @click="selectType('{{ key }}')"
+            :class="{ 'is-selected': typeGroup === '{{ key }}', 'is-empty': isTypeEmpty('{{ key }}') }"
+            :disabled="isTypeEmpty('{{ key }}')">
+            {{ group.0 }}
+        </button>
+        {% endfor %}
+    </div>
+
+    <div id="vehicle-grid"></div>
+
+    <p class="browse-back-link"><a href="{% url 'menu' %}">&larr; Back to menu</a></p>
+</div>
+{% endblock %}

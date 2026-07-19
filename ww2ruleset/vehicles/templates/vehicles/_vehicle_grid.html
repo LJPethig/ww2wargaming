@@ -1,0 +1,20 @@
+{% if vehicles is None %}
+{% elif vehicles %}
+<div class="vehicle-grid">
+    {% for vehicle in vehicles %}
+    <div class="vehicle-card">
+        {% if vehicle.image %}
+        <div class="vehicle-card-image-wrap">
+            <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="vehicle-card-image">
+        </div>
+        {% else %}
+        <div class="vehicle-card-image vehicle-card-image--placeholder"></div>
+        {% endif %}
+        <div class="vehicle-card-name">{{ vehicle.name }}</div>
+        <div class="vehicle-card-type">{{ vehicle.get_type_display }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No {{ type_group_label }} vehicles entered for {{ nationality }} yet.</p>
+{% endif %}

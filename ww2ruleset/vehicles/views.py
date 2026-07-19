@@ -18,23 +18,35 @@ def menu_view(request):
     return render(request, "vehicles/menu.html")
 
 
-def nationality_list_view(request):
-    nationalities = Nationality.choices
-    return render(request, "vehicles/nationality_list.html", {
-        "nationalities": nationalities,
-    })
+def browse_view(request):
+    counts = {
+        nat_value: {
+            key: Vehicle.objects.filter(nationality=nat_value, type__in=types).count()
+            for key, (label, types) in TYPE_GROUPS.items()
+        }
+        for nat_value, _ in Nationality.choices
+    }
 
-def type_list_view(request, nationality):
-    return render(request, "vehicles/type_list.html", {
+    return render(request, "vehicles/browse.html", {
+        "nationalities": Nationality.choices,
         "type_groups": TYPE_GROUPS,
-        "nationality": nationality,
+        "counts": counts,
     })
 
-def vehicle_list_view(request, nationality, type_group):
-    label, type_values = TYPE_GROUPS[type_group]
-    vehicles = Vehicle.objects.filter(nationality=nationality, type__in=type_values)
-    return render(request, "vehicles/vehicle_list.html", {
+
+def vehicle_grid_view(request):
+    nationality = request.GET.get("nationality")
+    type_group = request.GET.get("type_group")
+
+    if not nationality or type_group not in TYPE_GROUPS:
+        return render(request, "vehicles/_vehicle_grid.html", {"vehicles": None})
+
+    label, types = TYPE_GROUPS[type_group]
+    vehicles = Vehicle.objects.filter(nationality=nationality, type__in=types)
+    vehicles = list(vehicles) * 20  # TEMP: repeat for scroll testing, remove after
+    
+    return render(request, "vehicles/_vehicle_grid.html", {
         "vehicles": vehicles,
-        "nationality": nationality,
         "type_group_label": label,
+        "nationality": nationality,
     })
