@@ -44,9 +44,15 @@ def vehicle_grid_view(request):
     label, types = TYPE_GROUPS[type_group]
     vehicles = Vehicle.objects.filter(nationality=nationality, type__in=types)
     vehicles = list(vehicles) * 20  # TEMP: repeat for scroll testing, remove after
-    
+
     return render(request, "vehicles/_vehicle_grid.html", {
         "vehicles": vehicles,
         "type_group_label": label,
         "nationality": nationality,
+    })
+
+def vehicle_detail_view(request, pk):
+    vehicle = Vehicle.objects.get(pk=pk)
+    return render(request, "vehicles/vehicle_detail.html", {
+        "vehicle": vehicle,
     })

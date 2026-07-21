@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ vehicle.name }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/browse.css' %}">
+    <link rel="stylesheet" href="{% static 'css/vehicle_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="detail-screen" style="--detail-bg-image: url('{% if vehicle.image %}{{ vehicle.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}')">
+    <p class="browse-back-link"><a href="{% url 'browse' %}">&larr; Back to results</a></p>
+
+    <div class="detail-header">
+        <h1>{{ vehicle.name }}</h1>
+        <p class="detail-subtitle">
+            {{ vehicle.get_type_display }} — {{ vehicle.nationality }} — {{ vehicle.available_from_year }}{% if vehicle.available_from_month %} ({{ vehicle.get_available_from_month_display }}){% endif %}
+        </p>
+    </div>
+
+    <div class="detail-scroll">
+        <div class="detail-content">
+            <div class="detail-section">
+                <h2>General Info</h2>
+                <div class="detail-general-info">{{ vehicle.general_info|linebreaks }}</div>
+            </div>
+
+            <div class="detail-section">
+                <h2>Mobility</h2>
+                <dl class="detail-stats">
+                    <div><dt>Road Speed</dt><dd>{{ vehicle.speed_road_kph }} km/h</dd></div>
+                    <div><dt>Cross-Country Speed</dt><dd>{{ vehicle.speed_cc_kph }} km/h</dd></div>
+                    <div><dt>Road Range</dt><dd>{{ vehicle.range_road_km }} km</dd></div>
+                    <div><dt>Cross-Country Range</dt><dd>{{ vehicle.range_cc_km }} km</dd></div>
+                    <div><dt>Weight</dt><dd>{{ vehicle.weight_tonne }} t</dd></div>
+                    <div><dt>Height</dt><dd>{{ vehicle.height_m }} m</dd></div>
+                    <div><dt>Length</dt><dd>{{ vehicle.length_m }} m</dd></div>
+                    <div><dt>Width</dt><dd>{{ vehicle.width_m }} m</dd></div>
+                    {% if vehicle.troop_capacity %}
+                    <div><dt>Troop Capacity</dt><dd>{{ vehicle.troop_capacity }}</dd></div>
+                    {% endif %}
+                </dl>
+            </div>
+            {% include "vehicles/_superstructure_armour.html" %}
+        </div>
+    </div>
+</div>
+{% endblock %}

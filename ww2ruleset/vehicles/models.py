@@ -27,6 +27,17 @@ class CrewCompartment(models.TextChoices):
     HULL = "hull", "Hull"
     SUPERSTRUCTURE = "superstructure", "Superstructure"
 
+class SuperStructureType(models.TextChoices):
+    SUPERSTRUCTURE = "superstructure", "Superstructure"
+    TURRET = "turret", "Turret"
+    CASEMATE = "casemate", "Casemate"
+    FIGHTING_COMPARTMENT = "fighting_compartment", "Fighting Compartment"
+
+class MantletType(models.TextChoices):
+    MANTLET = "mantlet", "Mantlet"
+    GUN_SHIELD = "gun_shield", "Gun Shield"
+
+
 class Nationality(models.TextChoices):
     GERMAN = "German", "German"
     RUSSIAN = "Russian", "Russian"
@@ -294,6 +305,9 @@ class HullArmour(models.Model):
 class SuperStructure(models.Model):
     vehicle = models.OneToOneField("Vehicle", related_name="superstructure", on_delete=models.CASCADE, null=True,
                                    blank=True)
+    superstructure_type_display = models.CharField(max_length=25, choices=SuperStructureType.choices)   # For UI display only
+    mantlet_type_display = models.CharField(max_length=25, choices=MantletType.choices, null=True, blank=True)  # For UI display only
+
     # armour thickness (mm)
     armour_front_mm = models.PositiveSmallIntegerField(null=True, blank=True)
     armour_lh_side_mm = models.PositiveSmallIntegerField(null=True, blank=True)

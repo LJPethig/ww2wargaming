@@ -155,6 +155,7 @@ class SuperStructureInline(admin.StackedInline):
             "fields": (
                 "armour_composition_superstructure", "armour_composition_mantlet",
                 "does_rotate", "superstructure_proportion_percent",
+                "superstructure_type_display", "mantlet_type_display",
             ),
         }),
     )

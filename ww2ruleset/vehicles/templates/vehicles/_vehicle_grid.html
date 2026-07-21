@@ -2,7 +2,7 @@
 {% elif vehicles %}
 <div class="vehicle-grid">
     {% for vehicle in vehicles %}
-    <div class="vehicle-card">
+    <a href="{% url 'vehicle_detail' vehicle.pk %}" class="vehicle-card">
         {% if vehicle.image %}
         <div class="vehicle-card-image-wrap">
             <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="vehicle-card-image">
@@ -12,7 +12,7 @@
         {% endif %}
         <div class="vehicle-card-name">{{ vehicle.name }}</div>
         <div class="vehicle-card-type">{{ vehicle.get_type_display }}</div>
-    </div>
+    </a>
     {% endfor %}
 </div>
 {% else %}
