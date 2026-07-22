@@ -123,9 +123,18 @@ h2 {
 }
 
 .armour-facing {
+    display: inline-block;
+    width: 90px;
     color: var(--ops-text-muted);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-right: var(--space-xs);
+}
+
+.armour-note {
+    color: var(--ops-text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: var(--space-sm);
 }
