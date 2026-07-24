@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .models import Vehicle, Nationality, VehicleType
+from .models import Vehicle, Nationality, VehicleType, WeaponRole
 
 
 TYPE_GROUPS = {
@@ -13,6 +13,13 @@ TYPE_GROUPS = {
     "utility": ("Utility", [VehicleType.JEEP, VehicleType.MOTORCYCLE, VehicleType.CARRIER]),
 }
 
+WEAPON_ROLE_ORDER = [
+    WeaponRole.MAIN_ARMAMENT,
+    WeaponRole.SECONDARY_ARMAMENT,
+    WeaponRole.COAXIAL_MACHINE_GUN,
+    WeaponRole.BOW_MACHINE_GUN,
+    WeaponRole.PINTLE_MACHINE_GUN,
+]
 
 def menu_view(request):
     return render(request, "vehicles/menu.html")
@@ -43,7 +50,6 @@ def vehicle_grid_view(request):
 
     label, types = TYPE_GROUPS[type_group]
     vehicles = Vehicle.objects.filter(nationality=nationality, type__in=types)
-    vehicles = list(vehicles) * 20  # TEMP: repeat for scroll testing, remove after
 
     return render(request, "vehicles/_vehicle_grid.html", {
         "vehicles": vehicles,
@@ -53,6 +59,22 @@ def vehicle_grid_view(request):
 
 def vehicle_detail_view(request, pk):
     vehicle = Vehicle.objects.get(pk=pk)
+
+    capacity_by_caliber = {
+        ac.caliber_mm: ac.capacity for ac in vehicle.ammo_capacity.all()
+    }
+
+    mounts = list(
+        vehicle.hull_weapon_mounts.select_related("weapon").prefetch_related("weapon__ammo")
+    ) + list(
+        vehicle.superstructure_weapon_mounts.select_related("weapon").prefetch_related("weapon__ammo")
+    )
+    mounts.sort(key=lambda m: WEAPON_ROLE_ORDER.index(m.role))
+
+    for mount in mounts:
+        mount.ammo_capacity = capacity_by_caliber.get(mount.weapon.caliber_mm)
+
     return render(request, "vehicles/vehicle_detail.html", {
         "vehicle": vehicle,
+        "weapon_mounts": mounts,
     })

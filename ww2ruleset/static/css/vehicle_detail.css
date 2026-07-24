@@ -115,7 +115,6 @@ h2 {
 .armour-list li {
     color: var(--ops-text);
     padding: var(--space-xs) 0;
-    border-bottom: 1px solid var(--ops-border);
 }
 
 .armour-list li:last-child {
@@ -124,11 +123,12 @@ h2 {
 
 .armour-facing {
     display: inline-block;
-    width: 90px;
+    width: 130px;
     color: var(--ops-text-muted);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.9);
     margin-right: var(--space-xs);
 }
 
@@ -137,4 +137,71 @@ h2 {
     font-size: 0.8rem;
     font-style: italic;
     margin-top: var(--space-sm);
+}
+
+.weapon-block {
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+    line-height: 1.6;
+    font-size: 1.0rem;
+    border-bottom: 1px solid var(--ops-border);
+}
+
+.weapon-block:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.weapon-block h3 {
+    color: var(--ops-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.9);
+    margin: 0 0 var(--space-xs);
+}
+
+.weapon-summary {
+    color: var(--ops-text);
+    margin: 0 0 var(--space-xs);
+}
+
+.weapon-detail {
+    color: var(--ops-text);
+    padding: var(--space-xs) 0 var(--space-xs);
+    margin: 0;
+}
+
+.weapon-label {
+    display: inline-block;
+    width: 200px;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--ops-text-muted);
+    text-transform: uppercase;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.9);
+}
+
+.ammo-list {
+    list-style: none;
+    margin: var(--space-xs) 0 0;
+    padding: 0;
+}
+
+.ammo-list li {
+    color: var(--ops-text);
+}
+
+.weapon-ammo-row {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 10px;
+}
+
+.weapon-ammo-row .ammo-list {
+    margin: 0;
+}
+
+.weapon-ammo-row .weapon-label {
+    line-height: 1.6rem;
 }

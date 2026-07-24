@@ -3,22 +3,22 @@
     {% with h=vehicle.hull_armour %}
     <h2>Hull Armour ({{ h.get_armour_composition_hull_display }})</h2>
     <ul class="armour-list">
-        <li><span class="armour-facing">Front Lower</span> : {{ h.armour_front_lower_mm }}mm{% if h.armour_front_lower_applique_mm %} + {{ h.armour_front_lower_applique_mm }}mm applique{% endif %} @ {{ h.armour_front_lower_deg }}&deg; slope</li>
-        <li><span class="armour-facing">Front Upper</span> : {{ h.armour_front_upper_mm }}mm{% if h.armour_front_upper_applique_mm %} + {{ h.armour_front_upper_applique_mm }}mm applique{% endif %}{% if h.armour_front_upper_spaced_mm %} + {{ h.armour_front_upper_spaced_mm }}mm spaced{% endif %} @ {{ h.armour_front_upper_deg }}&deg; slope</li>
-        <li><span class="armour-facing">LH Side Lower</span> : {{ h.armour_lh_side_lower_mm }}mm{% if h.armour_lh_side_lower_applique_mm %} + {{ h.armour_lh_side_lower_applique_mm }}mm applique{% endif %}{% if h.armour_lh_side_lower_spaced_mm %} + {{ h.armour_lh_side_lower_spaced_mm }}mm spaced{% endif %} @ {{ h.armour_lh_side_lower_deg }}&deg; slope</li>
-        <li><span class="armour-facing">LH Side Upper</span> : {{ h.armour_lh_side_upper_mm }}mm{% if h.armour_lh_side_upper_applique_mm %} + {{ h.armour_lh_side_upper_applique_mm }}mm applique{% endif %}{% if h.armour_lh_side_upper_spaced_mm %} + {{ h.armour_lh_side_upper_spaced_mm }}mm spaced{% endif %} @ {{ h.armour_lh_side_upper_deg }}&deg; slope</li>
-        <li><span class="armour-facing">RH Side Lower</span> : {{ h.armour_rh_side_lower_mm }}mm{% if h.armour_rh_side_lower_applique_mm %} + {{ h.armour_rh_side_lower_applique_mm }}mm applique{% endif %}{% if h.armour_rh_side_lower_spaced_mm %} + {{ h.armour_rh_side_lower_spaced_mm }}mm spaced{% endif %} @ {{ h.armour_rh_side_lower_deg }}&deg; slope</li>
-        <li><span class="armour-facing">RH Side Upper</span> : {{ h.armour_rh_side_upper_mm }}mm{% if h.armour_rh_side_upper_applique_mm %} + {{ h.armour_rh_side_upper_applique_mm }}mm applique{% endif %}{% if h.armour_rh_side_upper_spaced_mm %} + {{ h.armour_rh_side_upper_spaced_mm }}mm spaced{% endif %} @ {{ h.armour_rh_side_upper_deg }}&deg; slope</li>
-        <li><span class="armour-facing">Rear Lower</span> : {{ h.armour_rear_lower_mm }}mm @ {{ h.armour_rear_lower_deg }}&deg; slope</li>
-        <li><span class="armour-facing">Rear Upper</span> : {{ h.armour_rear_upper_mm }}mm @ {{ h.armour_rear_upper_deg }}&deg; slope</li>
+        <li><span class="armour-facing">Front Lower</span>{{ h.armour_front_lower_mm }}mm{% if h.armour_front_lower_applique_mm %} + {{ h.armour_front_lower_applique_mm }}mm applique{% endif %} @ {{ h.armour_front_lower_deg }}&deg; slope</li>
+        <li><span class="armour-facing">Front Upper</span>{{ h.armour_front_upper_mm }}mm{% if h.armour_front_upper_applique_mm %} + {{ h.armour_front_upper_applique_mm }}mm applique{% endif %}{% if h.armour_front_upper_spaced_mm %} + {{ h.armour_front_upper_spaced_mm }}mm spaced{% endif %} @ {{ h.armour_front_upper_deg }}&deg; slope</li>
+        <li><span class="armour-facing">LH Side Lower</span>{{ h.armour_lh_side_lower_mm }}mm{% if h.armour_lh_side_lower_applique_mm %} + {{ h.armour_lh_side_lower_applique_mm }}mm applique{% endif %}{% if h.armour_lh_side_lower_spaced_mm %} + {{ h.armour_lh_side_lower_spaced_mm }}mm spaced{% endif %} @ {{ h.armour_lh_side_lower_deg }}&deg; slope</li>
+        <li><span class="armour-facing">LH Side Upper</span>{{ h.armour_lh_side_upper_mm }}mm{% if h.armour_lh_side_upper_applique_mm %} + {{ h.armour_lh_side_upper_applique_mm }}mm applique{% endif %}{% if h.armour_lh_side_upper_spaced_mm %} + {{ h.armour_lh_side_upper_spaced_mm }}mm spaced{% endif %} @ {{ h.armour_lh_side_upper_deg }}&deg; slope</li>
+        <li><span class="armour-facing">RH Side Lower</span>{{ h.armour_rh_side_lower_mm }}mm{% if h.armour_rh_side_lower_applique_mm %} + {{ h.armour_rh_side_lower_applique_mm }}mm applique{% endif %}{% if h.armour_rh_side_lower_spaced_mm %} + {{ h.armour_rh_side_lower_spaced_mm }}mm spaced{% endif %} @ {{ h.armour_rh_side_lower_deg }}&deg; slope</li>
+        <li><span class="armour-facing">RH Side Upper</span>{{ h.armour_rh_side_upper_mm }}mm{% if h.armour_rh_side_upper_applique_mm %} + {{ h.armour_rh_side_upper_applique_mm }}mm applique{% endif %}{% if h.armour_rh_side_upper_spaced_mm %} + {{ h.armour_rh_side_upper_spaced_mm }}mm spaced{% endif %} @ {{ h.armour_rh_side_upper_deg }}&deg; slope</li>
+        <li><span class="armour-facing">Rear Lower</span>{{ h.armour_rear_lower_mm }}mm @ {{ h.armour_rear_lower_deg }}&deg; slope</li>
+        <li><span class="armour-facing">Rear Upper</span>{{ h.armour_rear_upper_mm }}mm @ {{ h.armour_rear_upper_deg }}&deg; slope</li>
         {% if h.armour_front_top_mm %}
-        <li><span class="armour-facing">Front Top</span> : {{ h.armour_front_top_mm }}mm @ {{ h.armour_front_top_deg }}&deg; slope</li>
+        <li><span class="armour-facing">Front Top</span>{{ h.armour_front_top_mm }}mm @ {{ h.armour_front_top_deg }}&deg; slope</li>
         {% endif %}
         {% if h.armour_mid_top_mm %}
-        <li><span class="armour-facing">Mid Top</span> : {{ h.armour_mid_top_mm }}mm @ {{ h.armour_mid_top_deg }}&deg; slope</li>
+        <li><span class="armour-facing">Mid Top</span>{{ h.armour_mid_top_mm }}mm @ {{ h.armour_mid_top_deg }}&deg; slope</li>
         {% endif %}
         {% if h.armour_rear_top_mm %}
-        <li><span class="armour-facing">Rear Top</span> : {{ h.armour_rear_top_mm }}mm @ {{ h.armour_rear_top_deg }}&deg; slope</li>
+        <li><span class="armour-facing">Rear Top</span>{{ h.armour_rear_top_mm }}mm @ {{ h.armour_rear_top_deg }}&deg; slope</li>
         {% endif %}
     </ul>
     {% if h.armour_front_upper_spaced_mm or h.armour_lh_side_upper_spaced_mm or h.armour_rh_side_upper_spaced_mm or h.armour_lh_side_lower_spaced_mm or h.armour_rh_side_lower_spaced_mm %}

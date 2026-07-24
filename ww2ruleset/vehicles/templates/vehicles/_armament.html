@@ -1,0 +1,73 @@
+{% if weapon_mounts %}
+<div class="detail-section">
+    <h2>Armament</h2>
+    {% for mount in weapon_mounts %}
+    <div class="weapon-block">
+        <p class="weapon-detail"><span class="weapon-label">{{ mount.get_role_display }}</span>{{ mount.weapon.name }} — {{ mount.weapon.caliber_mm }}mm L/{{ mount.weapon.length_calibers }}</p>
+        <p class="weapon-detail"><span class="weapon-label">Rate of Fire</span>{{ mount.weapon.rate_of_fire_rpm }} rpm</p>
+        {% if mount.ammo_capacity %}
+        <p class="weapon-detail"><span class="weapon-label">Ammo carried</span>{{ mount.ammo_capacity }} rounds ({{ mount.weapon.caliber_mm }}mm)</p>
+        {% endif %}
+        {% if mount.weapon.ammo.all %}
+        <div class="weapon-detail weapon-ammo-row">
+            <span class="weapon-label">Ammo Type</span>
+            <ul class="ammo-list">
+                {% for ammo in mount.weapon.ammo.all %}
+                <li>{{ ammo.name }} ({{ ammo.get_ammo_type_display }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
