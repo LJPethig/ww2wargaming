@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="detail-screen" style="--detail-bg-image: url('{% if vehicle.image %}{{ vehicle.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}')">
+<div class="detail-screen" style="--detail-bg-image: url('{% if vehicle.image %}{{ vehicle.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}')" x-data="{ ammoModalOpen: false, selectedAmmoName: '', selectedAmmoType: '' }">
     <p class="browse-back-link"><a href="{% url 'browse' %}">&larr; Back to results</a></p>
 
     <div class="detail-header">
@@ -45,6 +45,16 @@
             {% include "vehicles/_superstructure_armour.html" %}
             {% include "vehicles/_hull_armour.html" %}
             {% include "vehicles/_armament.html" %}
+        </div>
+    </div>
+
+    <div class="ammo-modal-backdrop" x-show="ammoModalOpen" x-cloak>
+        <div class="ammo-modal">
+            <div class="ammo-modal-header">
+                <h2 x-text="selectedAmmoType === 'he' ? 'Blast Data' : 'Penetration Data'"></h2>
+                <button type="button" class="ammo-modal-close" @click="ammoModalOpen = false">&times;</button>
+            </div>
+            <div class="ammo-modal-body" x-text="selectedAmmoName"></div>
         </div>
     </div>
 </div>

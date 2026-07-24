@@ -205,3 +205,69 @@ h2 {
 .weapon-ammo-row .weapon-label {
     line-height: 1.6rem;
 }
+
+.ammo-list li {
+    position: relative;
+    cursor: pointer;
+}
+
+.ammo-list li:hover::after {
+    content: "Click for penetration data";
+    position: absolute;
+    margin: 0 10px;
+    background: var(--ops-surface);
+    border: 1px solid var(--ops-amber);
+    color: var(--ops-text-muted);
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+
+.ammo-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(13,14,9,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.ammo-modal {
+    background: var(--ops-surface);
+    border: 1px solid var(--ops-border);
+    border-radius: 3px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: var(--space-md);
+}
+
+.ammo-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+}
+
+.ammo-modal-header h2 {
+    margin: 0;
+}
+
+.ammo-modal-close {
+    background: none;
+    border: none;
+    color: var(--ops-text-muted);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+
+.ammo-modal-close:hover {
+    color: var(--ops-amber);
+}
