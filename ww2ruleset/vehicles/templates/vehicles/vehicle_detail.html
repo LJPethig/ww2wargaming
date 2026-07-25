@@ -9,7 +9,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="detail-screen" style="--detail-bg-image: url('{% if vehicle.image %}{{ vehicle.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}')" x-data="{ ammoModalOpen: false, selectedAmmoName: '', selectedAmmoType: '' }">
+{{ ammo_ballistics|json_script:"ammo-ballistics-data" }}
+    <div class="detail-screen" style="--detail-bg-image: url('{% if vehicle.image %}{{ vehicle.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}')" x-data="{ ammoModalOpen: false, selectedAmmoName: '', selectedAmmoType: '', selectedWeaponName: '', ammoBallistics: JSON.parse(document.getElementById('ammo-ballistics-data').textContent), selectedAmmoBallistics: [] }">
     <p class="browse-back-link"><a href="{% url 'browse' %}">&larr; Back to results</a></p>
 
     <div class="detail-header">
@@ -51,10 +52,51 @@
     <div class="ammo-modal-backdrop" x-show="ammoModalOpen" x-cloak>
         <div class="ammo-modal">
             <div class="ammo-modal-header">
-                <h2 x-text="selectedAmmoType === 'he' ? 'Blast Data' : 'Penetration Data'"></h2>
+                <h2>Ballistics Data</h2>
                 <button type="button" class="ammo-modal-close" @click="ammoModalOpen = false">&times;</button>
             </div>
-            <div class="ammo-modal-body" x-text="selectedAmmoName"></div>
+            <div class="ammo-modal-body">
+                <p class="ammo-modal-weapon-name" x-text="selectedWeaponName"></p>
+                <p class="ammo-modal-ammo-name" x-text="selectedAmmoName"></p>
+                <table class="ballistics-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <template x-for="band in selectedAmmoBallistics" :key="band.range_m">
+                                <th x-text="band.range_m + 'm'"></th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template x-if="selectedAmmoType !== 'he'">
+                        <tr>
+                            <td>Penetration (mm@30&deg;)</td>
+                            <template x-for="band in selectedAmmoBallistics" :key="band.range_m">
+                                <td x-text="band.pen_30 ?? '—'"></td>
+                            </template>
+                        </tr>
+                        </template>
+                        <template x-if="selectedAmmoType !== 'he'">
+                        <tr>
+                            <td>Penetration (mm@0&deg;)</td>
+                            <template x-for="band in selectedAmmoBallistics" :key="band.range_m">
+                                <td x-text="band.pen_0 ?? '—'"></td>
+                            </template>
+                        </tr>
+                        </template>
+                        <tr>
+                            <td>Hit Probability (%)</td>
+                            <template x-for="band in selectedAmmoBallistics" :key="band.range_m">
+                                <td x-text="band.hit_pct ?? '—'"></td>
+                            </template>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="ammo-modal-note">Hit probability is based on a static 2 x 2.4 metre panel at 0 degrees(vertical) at the range specified.</p>
+                <template x-if="selectedAmmoType === 'he'">
+                    <p><!-- HE blast sentences go here — not yet built --></p>
+                </template>
+            </div>
         </div>
     </div>
 </div>

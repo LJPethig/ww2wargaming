@@ -212,7 +212,7 @@ h2 {
 }
 
 .ammo-list li:hover::after {
-    content: "Click for penetration data";
+    content: "Click for ballistics data";
     position: absolute;
     margin: 0 10px;
     background: var(--ops-surface);

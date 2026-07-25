@@ -65,16 +65,29 @@ def vehicle_detail_view(request, pk):
     }
 
     mounts = list(
-        vehicle.hull_weapon_mounts.select_related("weapon").prefetch_related("weapon__ammo")
+        vehicle.hull_weapon_mounts.select_related("weapon").prefetch_related("weapon__ammo__ballistics")
     ) + list(
-        vehicle.superstructure_weapon_mounts.select_related("weapon").prefetch_related("weapon__ammo")
+        vehicle.superstructure_weapon_mounts.select_related("weapon").prefetch_related("weapon__ammo__ballistics")
     )
     mounts.sort(key=lambda m: WEAPON_ROLE_ORDER.index(m.role))
 
+    ammo_ballistics = {}
     for mount in mounts:
         mount.ammo_capacity = capacity_by_caliber.get(mount.weapon.caliber_mm)
+        for ammo in mount.weapon.ammo.all():
+            if ammo.pk not in ammo_ballistics:
+                ammo_ballistics[ammo.pk] = [
+                    {
+                        "range_m": b.range_m,
+                        "pen_0": b.penetration_mm_0deg,
+                        "pen_30": b.penetration_mm_30deg,
+                        "hit_pct": b.hit_probability_direct_fire_pct,
+                    }
+                    for b in ammo.ballistics.all()
+                ]
 
     return render(request, "vehicles/vehicle_detail.html", {
         "vehicle": vehicle,
         "weapon_mounts": mounts,
+        "ammo_ballistics": ammo_ballistics,
     })
