@@ -225,6 +225,155 @@ h2 {
     box-shadow: 0 2px 12px rgba(0,0,0,0.6);
 }
 
+.ammo-modal {
+    background: var(--ops-surface);
+    border: 1px solid var(--ops-border);
+    border-radius: 3px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    max-width: 900px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: var(--space-lg);
+}
+
+.ammo-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+    border-bottom: 1px solid var(--ops-border);
+    padding-bottom: var(--space-sm);
+}
+
+.ammo-modal-header h2 {
+    font-family: var(--font-display);
+    color: var(--ops-amber-dim);
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin: 0;
+}
+
+.ammo-modal-close {
+    background: none;
+    border: none;
+    color: var(--ops-text-muted);
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+
+.ammo-modal-close:hover {
+    color: var(--ops-amber);
+}
+
+.ammo-modal-weapon-name {
+    color: var(--ops-text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 2px;
+}
+
+.ammo-modal-ammo-name {
+    color: var(--ops-text);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 var(--space-md);
+}
+
+.ammo-modal-label {
+    display: inline-block;
+    width: 100px;
+    color: var(--ops-text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-right: var(--space-xs);
+}
+
+.ballistics-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--space-sm);
+}
+
+.ballistics-table th,
+.ballistics-table td {
+    padding: var(--space-xs) var(--space-sm);
+    text-align: center;
+    border-bottom: 1px solid var(--ops-border);
+    white-space: nowrap;
+}
+
+.ballistics-table thead th {
+    color: var(--ops-text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.9);
+}
+
+.ballistics-table tbody td:first-child {
+    text-align: left;
+    color: var(--ops-text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.9);
+    white-space: nowrap;
+}
+
+.ballistics-table tbody td:not(:first-child) {
+    color: var(--ops-text);
+    font-size: 0.95rem;
+}
+
+.ballistics-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.ammo-modal-note {
+    color: var(--ops-text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+    margin: 0 0 var(--space-md);
+}
+
+.ammo-modal-body p {
+    color: var(--ops-text);
+    line-height: 1.6;
+    margin: 0 0 var(--space-sm);
+}
+
+.ammo-modal-body p:last-child {
+    margin-bottom: 0;
+}
+
+.blast-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm) var(--space-md);
+    margin: 0 0 var(--space-md);
+}
+
+.blast-grid dt {
+    color: var(--ops-text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.9);
+}
+
+.blast-grid dd {
+    color: var(--ops-text);
+    font-size: 1rem;
+    margin: 0;
+}
+
 .ammo-modal-backdrop {
     position: fixed;
     inset: 0;
@@ -233,29 +382,6 @@ h2 {
     align-items: center;
     justify-content: center;
     z-index: 100;
-}
-
-.ammo-modal {
-    background: var(--ops-surface);
-    border: 1px solid var(--ops-border);
-    border-radius: 3px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.6);
-    max-width: 600px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-    padding: var(--space-md);
-}
-
-.ammo-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-sm);
-}
-
-.ammo-modal-header h2 {
-    margin: 0;
 }
 
 .ammo-modal-close {
@@ -271,3 +397,4 @@ h2 {
 .ammo-modal-close:hover {
     color: var(--ops-amber);
 }
+

@@ -11,7 +11,7 @@
 {% block content %}
 {{ ammo_ballistics|json_script:"ammo-ballistics-data" }}
 {{ ammo_blast|json_script:"ammo-blast-data" }}
-    <div class="detail-screen" style="--detail-bg-image: url('{% if vehicle.image %}{{ vehicle.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}')" x-data="{ ammoModalOpen: false, selectedAmmoName: '', selectedAmmoType: '', selectedWeaponName: '', ammoBallistics: JSON.parse(document.getElementById('ammo-ballistics-data').textContent), selectedAmmoBallistics: [], ammoBlast: JSON.parse(document.getElementById('ammo-blast-data').textContent), selectedAmmoBlast: {} }">
+    <div class="detail-screen" style="--detail-bg-image: url('{% if vehicle.image %}{{ vehicle.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}')" x-data="{ ammoModalOpen: false, selectedAmmoName: '', selectedAmmoType: '', selectedAmmoTypeDisplay: '', selectedWeaponName: '', ammoBallistics: JSON.parse(document.getElementById('ammo-ballistics-data').textContent), selectedAmmoBallistics: [], ammoBlast: JSON.parse(document.getElementById('ammo-blast-data').textContent), selectedAmmoBlast: {} }">
     <p class="browse-back-link"><a href="{% url 'browse' %}">&larr; Back to results</a></p>
 
     <div class="detail-header">
@@ -57,8 +57,8 @@
                 <button type="button" class="ammo-modal-close" @click="ammoModalOpen = false">&times;</button>
             </div>
             <div class="ammo-modal-body">
-                <p class="ammo-modal-weapon-name" x-text="selectedWeaponName"></p>
-                <p class="ammo-modal-ammo-name" x-text="selectedAmmoName"></p>
+                <p class="ammo-modal-weapon-name"><span class="ammo-modal-label">Weapon</span><span x-text="selectedWeaponName"></span></p>
+                <p class="ammo-modal-ammo-name"><span class="ammo-modal-label">Ammo</span><span x-text="selectedAmmoName + ' (' + selectedAmmoTypeDisplay + ')'"></span></p>
                 <table class="ballistics-table">
                     <thead>
                         <tr>
@@ -100,6 +100,12 @@
                     {# not missing/placeholder — it displays as "less than 1 meter" for clarity,    #}
                     {# rather than a confusing "within 0/1 mtr" pairing. See the matching comment   #}
                     {# on Ammo.burst_radius_99pct_m in models.py.                                   #}
+                    <dl class="blast-grid">
+                        <div><dt>99% Kill Radius</dt><dd x-text="(selectedAmmoBlast.burst_99 === 0 ? '&lt; 1' : selectedAmmoBlast.burst_99) + ' m'"></dd></div>
+                        <div><dt>66% Kill Radius</dt><dd x-text="(selectedAmmoBlast.burst_66 === 0 ? '&lt; 1' : selectedAmmoBlast.burst_66) + ' m'"></dd></div>
+                        <div><dt>33% Kill Radius</dt><dd x-text="(selectedAmmoBlast.burst_33 === 0 ? '&lt; 1' : selectedAmmoBlast.burst_33) + ' m'"></dd></div>
+                        <div><dt x-text="'Armour Penetration inc. roof at ' + (selectedAmmoBlast.pen_range === 0 ? '&lt; 1' : selectedAmmoBlast.pen_range) + ' m'"></dt><dd x-text="selectedAmmoBlast.pen_mm + ' mm'"></dd></div>
+                    </dl>
                     <template x-if="selectedAmmoBlast.burst_99 !== selectedAmmoBlast.burst_66">
                         <p x-text="'An explosion ' + (selectedAmmoBlast.burst_99 === 0 ? 'less than 1 meter' : selectedAmmoBlast.burst_99 + ' meter') + ' from infantry in the open will cause 99% casualties - lethal.'"></p>
                     </template>
