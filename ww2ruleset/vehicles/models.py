@@ -128,6 +128,9 @@ class Ammo(models.Model):
     caliber_mm = models.FloatField()  # matches Weapon.caliber_mm; enables caliber-filtered ammo selection
 
     # HE only — blast/fragmentation effects, None for armour piercing type rounds
+    # Values are as sourced from wwiitanks.co.uk — precision is limited to
+    # whole metres, with 0 being a genuine possible value (not a placeholder).
+    # See template comment for how 0 is displayed to the user.
     burst_radius_99pct_m = models.FloatField(null=True, blank=True)
     burst_radius_66pct_m = models.FloatField(null=True, blank=True)
     burst_radius_33pct_m = models.FloatField(null=True, blank=True)

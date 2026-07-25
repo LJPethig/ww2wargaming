@@ -72,6 +72,7 @@ def vehicle_detail_view(request, pk):
     mounts.sort(key=lambda m: WEAPON_ROLE_ORDER.index(m.role))
 
     ammo_ballistics = {}
+    ammo_blast = {}
     for mount in mounts:
         mount.ammo_capacity = capacity_by_caliber.get(mount.weapon.caliber_mm)
         for ammo in mount.weapon.ammo.all():
@@ -85,9 +86,18 @@ def vehicle_detail_view(request, pk):
                     }
                     for b in ammo.ballistics.all()
                 ]
+            if ammo.pk not in ammo_blast:
+                ammo_blast[ammo.pk] = {
+                    "burst_99": ammo.burst_radius_99pct_m,
+                    "burst_66": ammo.burst_radius_66pct_m,
+                    "burst_33": ammo.burst_radius_33pct_m,
+                    "pen_mm": ammo.blast_armour_penetration_mm,
+                    "pen_range": ammo.blast_armour_penetration_range_m,
+                }
 
     return render(request, "vehicles/vehicle_detail.html", {
         "vehicle": vehicle,
         "weapon_mounts": mounts,
         "ammo_ballistics": ammo_ballistics,
+        "ammo_blast": ammo_blast,
     })

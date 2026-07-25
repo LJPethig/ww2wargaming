@@ -10,7 +10,8 @@
 
 {% block content %}
 {{ ammo_ballistics|json_script:"ammo-ballistics-data" }}
-    <div class="detail-screen" style="--detail-bg-image: url('{% if vehicle.image %}{{ vehicle.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}')" x-data="{ ammoModalOpen: false, selectedAmmoName: '', selectedAmmoType: '', selectedWeaponName: '', ammoBallistics: JSON.parse(document.getElementById('ammo-ballistics-data').textContent), selectedAmmoBallistics: [] }">
+{{ ammo_blast|json_script:"ammo-blast-data" }}
+    <div class="detail-screen" style="--detail-bg-image: url('{% if vehicle.image %}{{ vehicle.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}')" x-data="{ ammoModalOpen: false, selectedAmmoName: '', selectedAmmoType: '', selectedWeaponName: '', ammoBallistics: JSON.parse(document.getElementById('ammo-ballistics-data').textContent), selectedAmmoBallistics: [], ammoBlast: JSON.parse(document.getElementById('ammo-blast-data').textContent), selectedAmmoBlast: {} }">
     <p class="browse-back-link"><a href="{% url 'browse' %}">&larr; Back to results</a></p>
 
     <div class="detail-header">
@@ -94,7 +95,23 @@
                 </table>
                 <p class="ammo-modal-note">Hit probability is based on a static 2 x 2.4 metre panel at 0 degrees(vertical) at the range specified.</p>
                 <template x-if="selectedAmmoType === 'he'">
-                    <p><!-- HE blast sentences go here — not yet built --></p>
+                    <div>
+                    {# A stored burst-radius value of 0 is real source data (the genuine minimum),  #}
+                    {# not missing/placeholder — it displays as "less than 1 meter" for clarity,    #}
+                    {# rather than a confusing "within 0/1 mtr" pairing. See the matching comment   #}
+                    {# on Ammo.burst_radius_99pct_m in models.py.                                   #}
+                    <template x-if="selectedAmmoBlast.burst_99 !== selectedAmmoBlast.burst_66">
+                        <p x-text="'An explosion ' + (selectedAmmoBlast.burst_99 === 0 ? 'less than 1 meter' : selectedAmmoBlast.burst_99 + ' meter') + ' from infantry in the open will cause 99% casualties - lethal.'"></p>
+                    </template>
+                    <p x-text="'An explosion ' + (selectedAmmoBlast.burst_66 === 0 ? 'less than 1 meter' : selectedAmmoBlast.burst_66 + ' meter') + ' from infantry in the open will cause &gt; 66% casualties and could damage some AFV\'s.'"></p>
+                    <p x-text="'An explosion ' + (selectedAmmoBlast.burst_33 === 0 ? 'less than 1 meter' : selectedAmmoBlast.burst_33 + ' meter') + ' from infantry in the open will cause 33% casualties.'"></p>
+                    <template x-if="selectedAmmoBlast.pen_mm > 0">
+                        <p x-text="'The blast effect of this shell exploding ' + (selectedAmmoBlast.pen_range === 0 ? 'less than 1 meter' : selectedAmmoBlast.pen_range + ' meter') + ' from an armoured vehicle will penetrate ' + selectedAmmoBlast.pen_mm + ' mm of the tank armour including the roof.'"></p>
+                    </template>
+                    <template x-if="!(selectedAmmoBlast.pen_mm > 0)">
+                        <p x-text="'The blast effect of this shell exploding ' + (selectedAmmoBlast.pen_range === 0 ? 'less than 1 meter' : selectedAmmoBlast.pen_range + ' meter') + ' from an armoured vehicle will not cause any significant armour damage.'"></p>
+                    </template>
+                </div>
                 </template>
             </div>
         </div>

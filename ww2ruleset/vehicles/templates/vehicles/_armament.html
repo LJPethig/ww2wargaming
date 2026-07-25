@@ -13,7 +13,7 @@
             <span class="weapon-label">Ammo Type</span>
             <ul class="ammo-list">
                 {% for ammo in mount.weapon.ammo.all %}
-                <li @click="ammoModalOpen = true; selectedAmmoName = '{{ ammo.name|escapejs }}'; selectedAmmoType = '{{ ammo.ammo_type }}'; selectedAmmoBallistics = ammoBallistics[{{ ammo.pk }}]; selectedWeaponName = '{{ mount.weapon.name|escapejs }}'">{{ ammo.name }} ({{ ammo.get_ammo_type_display }})</li>
+                <li @click="ammoModalOpen = true; selectedAmmoName = '{{ ammo.name|escapejs }}'; selectedAmmoType = '{{ ammo.ammo_type }}'; selectedAmmoBallistics = ammoBallistics[{{ ammo.pk }}]; selectedAmmoBlast = ammoBlast[{{ ammo.pk }}]; selectedWeaponName = '{{ mount.weapon.name|escapejs }}'">{{ ammo.name }} ({{ ammo.get_ammo_type_display }})</li>
                 {% endfor %}
             </ul>
         </div>
