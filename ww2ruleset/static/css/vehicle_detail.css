@@ -225,7 +225,7 @@ h2 {
     box-shadow: 0 2px 12px rgba(0,0,0,0.6);
 }
 
-.ammo-modal {
+.data-modal {
     background: var(--ops-surface);
     border: 1px solid var(--ops-border);
     border-radius: 3px;
@@ -237,7 +237,7 @@ h2 {
     padding: var(--space-lg);
 }
 
-.ammo-modal-header {
+.data-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -246,7 +246,7 @@ h2 {
     padding-bottom: var(--space-sm);
 }
 
-.ammo-modal-header h2 {
+.data-modal-header h2 {
     font-family: var(--font-display);
     color: var(--ops-amber-dim);
     font-size: 1.3rem;
@@ -255,7 +255,7 @@ h2 {
     margin: 0;
 }
 
-.ammo-modal-close {
+.data-modal-close {
     background: none;
     border: none;
     color: var(--ops-text-muted);
@@ -265,11 +265,11 @@ h2 {
     padding: 0;
 }
 
-.ammo-modal-close:hover {
+.data-modal-close:hover {
     color: var(--ops-amber);
 }
 
-.ammo-modal-weapon-name {
+.data-modal-weapon-name {
     color: var(--ops-text-muted);
     font-size: 0.85rem;
     text-transform: uppercase;
@@ -277,14 +277,14 @@ h2 {
     margin: 0 0 2px;
 }
 
-.ammo-modal-ammo-name {
+.data-modal-ammo-name {
     color: var(--ops-text);
     font-size: 1.15rem;
     font-weight: 600;
     margin: 0 0 var(--space-md);
 }
 
-.ammo-modal-label {
+.data-modal-label {
     display: inline-block;
     width: 100px;
     color: var(--ops-text-muted);
@@ -336,20 +336,20 @@ h2 {
     border-bottom: none;
 }
 
-.ammo-modal-note {
+.data-modal-note {
     color: var(--ops-text-muted);
     font-size: 0.8rem;
     font-style: italic;
     margin: 0 0 var(--space-md);
 }
 
-.ammo-modal-body p {
+.data-modal-body p {
     color: var(--ops-text);
     line-height: 1.6;
     margin: 0 0 var(--space-sm);
 }
 
-.ammo-modal-body p:last-child {
+.data-modal-body p:last-child {
     margin-bottom: 0;
 }
 
@@ -374,7 +374,7 @@ h2 {
     margin: 0;
 }
 
-.ammo-modal-backdrop {
+.data-modal-backdrop {
     position: fixed;
     inset: 0;
     background: rgba(13,14,9,0.85);
@@ -384,7 +384,7 @@ h2 {
     z-index: 100;
 }
 
-.ammo-modal-close {
+.data-modal-close {
     background: none;
     border: none;
     color: var(--ops-text-muted);
@@ -394,7 +394,41 @@ h2 {
     padding: 0;
 }
 
-.ammo-modal-close:hover {
+.data-modal-close:hover {
     color: var(--ops-amber);
+}
+
+.data-modal-field {
+    margin: 0 0 var(--space-xs);
+}
+
+.data-modal-field span:last-child {
+    color: var(--ops-text);
+}
+
+.data-modal-general-info {
+    color: var(--ops-text);
+    line-height: 1.6;
+    white-space: pre-line;
+    margin: 0 0 var(--space-sm);
+}
+
+.weapon-name-link {
+    cursor: pointer;
+    position: relative;
+}
+
+.weapon-name-link:hover::after {
+    content: "Click for Weapon Data";
+    position: absolute;
+    margin: 0 10px;
+    background: var(--ops-surface);
+    border: 1px solid var(--ops-amber);
+    color: var(--ops-text-muted);
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.6);
 }
 

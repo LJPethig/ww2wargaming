@@ -46,10 +46,11 @@ class Nationality(models.TextChoices):
     FRENCH = "French", "French"
 
 class AmmoType(models.TextChoices):
-    AP = "ap", "AP - Armour Piercing"
-    APCR = "apcr", "APCR - Armour Piercing, Composite Rigid (tungsten-cored)"
-    HE = "he", "HE - High Explosive"
-    BALL = "ball", "BALL - Standard small arms"
+    AP = "ap", "Armour Piercing"
+    APCR = "apcr", "Armour Piercing, Composite Rigid"
+    HE = "he", "High Explosive"
+    HEAT = "heat", "High Explosive Anti-Tank"
+    BALL = "ball", "Standard small arms"
 
 class WeaponType(models.TextChoices):
     MACHINE_GUN = "machine_gun", "Machine Gun"
@@ -180,6 +181,7 @@ class AmmoBallistics(models.Model):
 
 class Weapon(models.Model):
     name = models.CharField(max_length=100)
+    general_info = models.TextField()  # free-text history/description, for display purposes
     weapon_type = models.CharField(max_length=20, choices=WeaponType.choices)
     nationality = models.CharField(max_length=20, choices=Nationality.choices)
     caliber_mm = models.FloatField()

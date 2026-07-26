@@ -3,8 +3,7 @@
     <h2>Armament</h2>
     {% for mount in weapon_mounts %}
     <div class="weapon-block">
-        <p class="weapon-detail"><span class="weapon-label">{{ mount.get_role_display }}</span>{{ mount.weapon.name }} — {{ mount.weapon.caliber_mm }}mm L/{{ mount.weapon.length_calibers }}</p>
-        <p class="weapon-detail"><span class="weapon-label">Rate of Fire</span>{{ mount.weapon.rate_of_fire_rpm }} rpm</p>
+        <p class="weapon-detail"><span class="weapon-label">{{ mount.get_role_display }}</span><span class="weapon-name-link" @click="dataModalOpen = true; selectedModalKind = 'weapon'; selectedWeaponName = '{{ mount.weapon.name|escapejs }}'; selectedWeaponTypeDisplay = '{{ mount.weapon.get_weapon_type_display|escapejs }}'; selectedWeaponNationality = '{{ mount.weapon.get_nationality_display|escapejs }}'; selectedWeaponCaliber = {{ mount.weapon.caliber_mm }}; selectedWeaponLength = {{ mount.weapon.length_calibers }}; selectedWeaponRateOfFire = {{ mount.weapon.rate_of_fire_rpm }}; selectedWeaponGeneralInfo = '{{ mount.weapon.general_info|escapejs }}'">{{ mount.weapon.name }}</span></p>
         {% if mount.ammo_capacity %}
         <p class="weapon-detail"><span class="weapon-label">Ammo carried</span>{{ mount.ammo_capacity }} rounds ({{ mount.weapon.caliber_mm }}mm)</p>
         {% endif %}
@@ -13,7 +12,7 @@
             <span class="weapon-label">Ammo Type</span>
             <ul class="ammo-list">
                 {% for ammo in mount.weapon.ammo.all %}
-                <li @click="ammoModalOpen = true; selectedAmmoName = '{{ ammo.name|escapejs }}'; selectedAmmoType = '{{ ammo.ammo_type }}'; selectedAmmoTypeDisplay = '{{ ammo.get_ammo_type_display|cut:"AP - "|cut:"APCR - "|cut:"HE - "|cut:"BALL - "|escapejs }}'; selectedAmmoBallistics = ammoBallistics[{{ ammo.pk }}]; selectedAmmoBlast = ammoBlast[{{ ammo.pk }}]; selectedWeaponName = '{{ mount.weapon.name|escapejs }}'">{{ ammo.name }} ({{ ammo.get_ammo_type_display }})</li>
+                <li @click="dataModalOpen = true; selectedModalKind = 'ammo'; selectedAmmoName = '{{ ammo.name|escapejs }}'; selectedAmmoType = '{{ ammo.ammo_type }}'; selectedAmmoTypeDisplay = '{{ ammo.get_ammo_type_display|escapejs }}'; selectedAmmoBallistics = ammoBallistics[{{ ammo.pk }}]; selectedAmmoBlast = ammoBlast[{{ ammo.pk }}]; selectedWeaponName = '{{ mount.weapon.name|escapejs }}'; selectedWeaponTypeDisplay = '{{ mount.weapon.get_weapon_type_display|escapejs }}'">{{ ammo.name }} ({{ ammo.get_ammo_type_display }})</li>
                 {% endfor %}
             </ul>
         </div>
@@ -22,52 +21,3 @@
     {% endfor %}
 </div>
 {% endif %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
