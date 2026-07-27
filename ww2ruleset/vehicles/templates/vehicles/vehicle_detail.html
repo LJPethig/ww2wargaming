@@ -11,7 +11,7 @@
 {% block content %}
 {{ ammo_ballistics|json_script:"ammo-ballistics-data" }}
 {{ ammo_blast|json_script:"ammo-blast-data" }}
-    <div class="detail-screen" style="--detail-bg-image: url('{% if vehicle.image %}{{ vehicle.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}')" x-data="{ dataModalOpen: false, selectedModalKind: 'ammo', selectedAmmoName: '', selectedAmmoType: '', selectedAmmoTypeDisplay: '', selectedWeaponName: '', selectedWeaponTypeDisplay: '', selectedWeaponNationality: '', selectedWeaponCaliber: '', selectedWeaponLength: '', selectedWeaponRateOfFire: '', selectedWeaponGeneralInfo: '', ammoBallistics: JSON.parse(document.getElementById('ammo-ballistics-data').textContent), selectedAmmoBallistics: [], ammoBlast: JSON.parse(document.getElementById('ammo-blast-data').textContent), selectedAmmoBlast: {} }">
+    <div class="detail-screen" style="--detail-bg-image: url('{% if vehicle.image %}{{ vehicle.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}')" x-data="{ dataModalOpen: false, selectedModalKind: 'ammo', selectedAmmoName: '', selectedAmmoType: '', selectedAmmoTypeDisplay: '', selectedWeaponName: '', selectedWeaponTypeDisplay: '', selectedWeaponNationality: '', selectedWeaponCaliber: '', selectedWeaponLength: '', selectedWeaponRateOfFire: '', selectedWeaponGeneralInfo: '', selectedWeaponImage: '', ammoBallistics: JSON.parse(document.getElementById('ammo-ballistics-data').textContent), selectedAmmoBallistics: [], ammoBlast: JSON.parse(document.getElementById('ammo-blast-data').textContent), selectedAmmoBlast: {} }">
     <p class="browse-back-link"><a href="{% url 'browse' %}">&larr; Back to results</a></p>
 
     <div class="detail-header">
@@ -51,10 +51,10 @@
     </div>
 
     <div class="data-modal-backdrop" x-show="dataModalOpen" x-cloak>
-        <div class="data-modal">
+        <div class="data-modal" :style="selectedModalKind === 'weapon' ? { backgroundImage: 'linear-gradient(rgba(13,14,9,0.55), rgba(13,14,9,0.9)), url(' + selectedWeaponImage + ')', backgroundSize: 'cover', backgroundPosition: 'center' } : {}">
             <div class="data-modal-header">
                 <h2 x-text="selectedModalKind === 'weapon' ? 'Weapon Data' : 'Ballistics Data'"></h2>
-                <button type="button" class="data-modal-close" @click="dataModalOpen = false">&times;</button>
+                <button type="button" class="data-modal-close" @click="dataModalOpen = false">exit</button>
             </div>
             <div class="data-modal-body">
                 <template x-if="selectedModalKind === 'weapon'">

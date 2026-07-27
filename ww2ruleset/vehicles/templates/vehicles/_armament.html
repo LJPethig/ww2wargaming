@@ -1,9 +1,10 @@
+{% load static %}
 {% if weapon_mounts %}
 <div class="detail-section">
     <h2>Armament</h2>
     {% for mount in weapon_mounts %}
     <div class="weapon-block">
-        <p class="weapon-detail"><span class="weapon-label">{{ mount.get_role_display }}</span><span class="weapon-name-link" @click="dataModalOpen = true; selectedModalKind = 'weapon'; selectedWeaponName = '{{ mount.weapon.name|escapejs }}'; selectedWeaponTypeDisplay = '{{ mount.weapon.get_weapon_type_display|escapejs }}'; selectedWeaponNationality = '{{ mount.weapon.get_nationality_display|escapejs }}'; selectedWeaponCaliber = {{ mount.weapon.caliber_mm }}; selectedWeaponLength = {{ mount.weapon.length_calibers }}; selectedWeaponRateOfFire = {{ mount.weapon.rate_of_fire_rpm }}; selectedWeaponGeneralInfo = '{{ mount.weapon.general_info|escapejs }}'">{{ mount.weapon.name }}</span></p>
+        <p class="weapon-detail"><span class="weapon-label">{{ mount.get_role_display }}</span><span class="weapon-name-link" @click="dataModalOpen = true; selectedModalKind = 'weapon'; selectedWeaponName = '{{ mount.weapon.name|escapejs }}'; selectedWeaponTypeDisplay = '{{ mount.weapon.get_weapon_type_display|escapejs }}'; selectedWeaponNationality = '{{ mount.weapon.get_nationality_display|escapejs }}'; selectedWeaponCaliber = {{ mount.weapon.caliber_mm }}; selectedWeaponLength = {{ mount.weapon.length_calibers }}; selectedWeaponRateOfFire = {{ mount.weapon.rate_of_fire_rpm }}; selectedWeaponGeneralInfo = '{{ mount.weapon.general_info|escapejs }}'; selectedWeaponImage = '{% if mount.weapon.image %}{{ mount.weapon.image.url }}{% else %}{% static "images/main_menu.jpg" %}{% endif %}'">{{ mount.weapon.name }}</span></p>
         {% if mount.ammo_capacity %}
         <p class="weapon-detail"><span class="weapon-label">Ammo carried</span>{{ mount.ammo_capacity }} rounds ({{ mount.weapon.caliber_mm }}mm)</p>
         {% endif %}

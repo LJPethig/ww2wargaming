@@ -181,6 +181,7 @@ class AmmoBallistics(models.Model):
 
 class Weapon(models.Model):
     name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="weapons/", null=True, blank=True)
     general_info = models.TextField()  # free-text history/description, for display purposes
     weapon_type = models.CharField(max_length=20, choices=WeaponType.choices)
     nationality = models.CharField(max_length=20, choices=Nationality.choices)
